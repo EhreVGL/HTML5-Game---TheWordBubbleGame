@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Düşürme Oyunu</title>
+    <style>
+        @font-face {
+            font-family: 'Sniglet-Regular';
+            src: url('assets/Sniglet-Regular.ttf') format('truetype');
+        }
+
+        * {
+            font-family: 'Sniglet-Regular';
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #1E1E37;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            color: #8E8EA5;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 28px;
+            color: #8E8EA5;
+            margin-bottom: 20px;
+            font-weight: bolder;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #8E8EA5;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 300px;
+            height: 5px;
+            background: #ddd;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: dodgerblue;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: dodgerblue;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        button {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1E90FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="controls">
+            <p class="title">THE WORD BUBBLE GAME</p>
+            <label id="numberLabel" for="number">Top Sayısı:</label>
+            <input type="range" id="number" min="20" max="50" value="10">
+            <label id="minRadiusLabel" for="minRadius">Min Çap:</label>
+            <input type="range" id="minRadius" min="30" max="60" value="10">
+            <label id="maxRadiusLabel" for="maxRadius">Max Çap:</label>
+            <input type="range" id="maxRadius" min="50" max="80" value="10">
+            <button onclick="drawBalls()">Topları Çiz</button>
+            <p><b>NOTLAR:</b> <br> Toplam 100 adet olmak üzere 20 adet üç harfli, 40 adet dört harfli ve 40 adet beş harfli kelimeden 20 tanesini rastgele seçiyor ve harflerine ayırıp sırayla toplara ekliyor. İlki tutorial olmak üzere toplam 4 adet kelime seçtikten sonra oyun bitiyor. Eğer seçilen top sayısı toplam harf sayısından fazla olursa harfleri eklemeye baştan başlıyor.<br><br></p>
+        </div>
+        <canvas id="gameCanvas" width="480" height="660"></canvas>
+    </div>
+    <script>
+        // İnput değerlerini güncelleyen fonksiyon
+        function updateLabel(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+    
+            // İnput değerini label'a yazdır
+            label.innerHTML = label.textContent.split(':')[0] + ': ' + input.value;
+    
+            // İnput olay dinleyicisi ekle
+            input.addEventListener('input', function() {
+                label.innerHTML = label.textContent.split(':')[0] + ': ' + input.value;
+            });
+        }
+    
+        // Tüm inputlar için label güncelleme fonksiyonunu çağır
+        updateLabel('number', 'numberLabel');
+        updateLabel('minRadius', 'minRadiusLabel');
+        updateLabel('maxRadius', 'maxRadiusLabel');
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
